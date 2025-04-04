@@ -100,26 +100,11 @@ const songs: Song[] = [
     songUrl: "/songs/Dark Thoughts.mp3",
     bgGradient: "from-slate-800 via-sky-900 to-gray-900"
   },
+  
+ 
+  
   {
     id: "12",
-    title: "Dein Mann Freestyle",
-    artist: "benno!",
-    duration: "2:25",
-    albumCover: "https://i.scdn.co/image/ab67616d000048513fc1d20211b99d205d80721d",
-    songUrl: "/songs/DeinMannFreestyle.mp3",
-    bgGradient: "from-amber-700 via-orange-800 to-yellow-900"
-  },
-  {
-    id: "13",
-    title: "EL DÍA DEL AMIGO",
-    artist: "CA7RIEL, Paco Amoroso",
-    duration: "3:35", // Random duration
-    albumCover: "https://i.scdn.co/image/ab67616d00004851ea29212b801087f18319c187",
-    songUrl: "/songs/ELDÍADELAMIGO.mp3",
-    bgGradient: "from-fuchsia-700 via-purple-800 to-violet-900"
-  },
-  {
-    id: "14",
     title: "Emergence",
     artist: "Sleep Token",
     duration: "2.40",
@@ -127,17 +112,9 @@ const songs: Song[] = [
     songUrl: "/songs/Emergence.mp3",
     bgGradient: "from-violet-800 via-indigo-900 to-purple-900"
   },
+ 
   {
-    id: "15",
-    title: "EVIL J0RDAN",
-    artist: "Playboi Carti",
-    duration: "4.21",
-    albumCover: "https://i.scdn.co/image/ab67616d000048516b219c8d8462bfe254a20469",
-    songUrl: "/songs/EVILJ0RDAN.mp3",
-    bgGradient: "from-black via-red-800 to-red-900"
-  },
-  {
-    id: "16",
+    id: "13",
     title: "Farzet",
     artist: "Sertab Erener",
     duration: "3.33",
@@ -146,7 +123,7 @@ const songs: Song[] = [
     bgGradient: "from-orange-700 via-amber-800 to-yellow-900"
   },
   {
-    id: "17",
+    id: "14",
     title: "Heer",
     artist: "Ali & Shjr, Haider Ali, Ali Raza",
     duration: "2.31",

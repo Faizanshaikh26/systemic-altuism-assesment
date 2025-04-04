@@ -17,6 +17,8 @@ import {
 } from "react-icons/ri";
 import { usePlayer } from "../../context/music-player";
 import MoreOptions from "./more-option";
+import SongLoader from "../../components/loader";
+import { div } from "framer-motion/client";
 
 export default function Player() {
   const {
@@ -29,7 +31,7 @@ export default function Player() {
     time,
     audioRef,
     seekBg,
-    seek,
+    seek,isLoading
   } = usePlayer();
 
   const togglePlay = () => {
@@ -88,7 +90,11 @@ export default function Player() {
       </div>
 
       {/* Progress Bar */}
-      <div
+
+      {
+        isLoading ? <div className="flex items-center max-w-xl mx-auto">
+          <SongLoader/>
+        </div> : <div
         className="w-full max-w-[400px] mb-4 mx-auto relative cursor-pointer"
         ref={seekBg}
         onMouseDown={seek}
@@ -100,6 +106,8 @@ export default function Player() {
           />
         </div>
       </div>
+      }
+      
 
       {/* Controls */}
       <div className="flex flex-wrap justify-center items-center w-full max-w-[400px] mx-auto gap-6">
