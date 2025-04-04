@@ -43,7 +43,7 @@ import {Song} from '../utils/types/song'
   
   export const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
   
-  // Custom Hook
+
   export const usePlayer = (): PlayerContextType => {
     const context = useContext(PlayerContext);
     if (!context) {
@@ -61,7 +61,8 @@ import {Song} from '../utils/types/song'
     const seekBg = useRef<HTMLDivElement>(null);
     const seekBar = useRef<HTMLDivElement>(null);
     const seekRing = useRef<HTMLDivElement>(null);
-    const audioRef = useRef<HTMLAudioElement>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
   
     const [albumData, setAlbumData] = useState<Song[]>([]);
     const [currentTrack, setCurrentTrack] = useState<Song | null>(null);
