@@ -18,7 +18,7 @@ import {
 import { usePlayer } from "../../context/music-player";
 import MoreOptions from "./more-option";
 import SongLoader from "../../components/loader";
-import { div } from "framer-motion/client";
+
 
 export default function Player() {
   const {
@@ -92,21 +92,26 @@ export default function Player() {
       {/* Progress Bar */}
 
       {
-        isLoading ? <div className="flex items-center max-w-xl mx-auto">
-          <SongLoader/>
-        </div> : <div
-        className="w-full max-w-[400px] mb-4 mx-auto relative cursor-pointer"
-        ref={seekBg}
-        onMouseDown={seek}
-      >
-        <div className="w-full bg-gray-700 h-1 rounded-full overflow-hidden">
-          <div
-            className="bg-white h-full rounded-full"
-            style={{ width: `${calculateProgress()}%` }}
-          />
-        </div>
+  isLoading ? (
+    <div className="flex items-center max-w-xl mx-auto">
+      <SongLoader />
+    </div>
+  ) : (
+    <div
+      className="w-full max-w-[400px] mb-4 mx-auto relative cursor-pointer"
+      ref={seekBg}
+      onMouseDown={seek}
+    >
+      <div className="w-full bg-gray-700 h-1 rounded-full overflow-hidden">
+        <div
+          className="bg-white h-full rounded-full"
+          style={{ width: `${calculateProgress()}%` }}
+        />
       </div>
-      }
+    </div>
+  )
+}
+
       
 
       {/* Controls */}
