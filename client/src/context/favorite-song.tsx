@@ -51,7 +51,7 @@ export const FavoriteProvider = ({ children }: { children: React.ReactNode }) =>
   )
 }
 
-
+// ✅ Hook to use the context
 export const useFavorite = () => {
   const context = useContext(FavoriteContext)
   if (!context) {

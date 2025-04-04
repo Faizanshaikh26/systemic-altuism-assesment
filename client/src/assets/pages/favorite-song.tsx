@@ -6,7 +6,7 @@ import { Song } from "../../utils/types/song"
 export default function FavoriteList() {
   const [favoriteSongs, setFavoriteSongs] = useState<Song[]>([])
 
-
+  // Fetch favorites from localStorage
   const getFavoritesongs = () => {
     const favorites = getFavoriteSongs()
     setFavoriteSongs(favorites)
@@ -16,11 +16,11 @@ export default function FavoriteList() {
     getFavoritesongs()
   }, [])
 
-  const handleRemove = (id: string | number) => {
-    removeSongFromFavorite(String(id))
+  const handleRemove = (id: string) => {
+    removeSongFromFavorite(id)
     getFavoritesongs()
   }
-  
+
   return (
     <div className="h-full flex flex-col">
       <h2 className="text-2xl font-bold mb-4">Your Favorites</h2>
