@@ -61,7 +61,7 @@ import {Song} from '../utils/types/song'
     const seekBg = useRef<HTMLDivElement>(null);
     const seekBar = useRef<HTMLDivElement>(null);
     const seekRing = useRef<HTMLDivElement>(null);
-    const audioRef = useRef<HTMLAudioElement | null>(null!);
+    const audioRef = useRef<HTMLAudioElement | null> (null!)
 
   
     const [albumData, setAlbumData] = useState<Song[]>([]);
@@ -196,8 +196,8 @@ import {Song} from '../utils/types/song'
       };
     }, [nextTrack]);
   
-    const playWithId = useCallback((songId: string) => {
-      const song = albumData.find((song:Song) => song.id === songId);
+    const playWithId = useCallback((songId:string | number) => {
+      const song = albumData.find((song) => song.id === songId);
       if (song) {
         setCurrentTrack(song);
         if (audioRef.current) {
