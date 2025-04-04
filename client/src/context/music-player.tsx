@@ -10,16 +10,10 @@ import React, {
   } from "react";
   import songs from "../utils/songdata";
 import { addToRecentlyPlayed } from "../utils/recentPlayedsong";
+import {Song} from '../utils/types/song'
   
   
-  interface Song {
-    id: number;
-    title: string;
-    artist: string;
-    duration: string;
-    albumCover: string;
-    songUrl: string;
-  }
+
   
   interface PlayerContextType {
     albumData: Song[];
@@ -43,7 +37,7 @@ import { addToRecentlyPlayed } from "../utils/recentPlayedsong";
     seekBar: React.RefObject<HTMLDivElement>;
     seekBg: React.RefObject<HTMLDivElement>;
     seekRing: React.RefObject<HTMLDivElement>;
-    playWithId: (songId: number) => void;
+    playWithId: (songId:string | number) => void;
   }
   
   
@@ -145,7 +139,7 @@ import { addToRecentlyPlayed } from "../utils/recentPlayedsong";
         if (currentIndex > 0) {
           setCurrentTrack(albumData[currentIndex - 1]);
         } else {
-          setCurrentTrack(albumData[albumData.length - 1]); // Loop back to last song
+          setCurrentTrack(albumData[albumData.length - 1]); 
         }
         if (audioRef.current) audioRef.current.currentTime = 0;
         loadTrack();

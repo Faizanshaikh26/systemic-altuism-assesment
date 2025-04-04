@@ -8,6 +8,8 @@ import { motion } from "framer-motion"
 import SongLoader from "../../components/loader"
 
 
+
+
 export default function SongList() {
   const [searchQuery, setSearchQuery] = useState("")
   const { playWithId, currentTrack, isPlaying } = usePlayer()
@@ -48,7 +50,7 @@ export default function SongList() {
             transition={{ duration: 0.4, delay: index * 0.03 }}
             viewport={{ once: true }}
             className={`flex items-center p-2 rounded-md hover:bg-gray-800/50 cursor-pointer ${
-              currentTrack?.id === song.id ? "bg-gray-800/80" : ""
+              String(currentTrack?.id) === song.id ? "bg-gray-800/80" : ""
             }`}
           >
             <img
@@ -57,13 +59,13 @@ export default function SongList() {
               className="w-11 h-11 rounded-full mr-3"
             />
             <div className="flex-grow">
-              <p className={`text-sm ${currentTrack?.id === song.id ? "text-white" : "text-gray-300"}`}>
+              <p className={`text-sm ${ String(currentTrack?.id) === song.id ? "text-white" : "text-gray-300"}`}>
                 {song.title}
               </p>
               <p className="text-xs text-gray-500">{song.artist}</p>
             </div>
 
-            {currentTrack?.id === song.id && isPlaying && (
+            { String(currentTrack?.id) === song.id && isPlaying && (
             <SongLoader/>
             )}
 

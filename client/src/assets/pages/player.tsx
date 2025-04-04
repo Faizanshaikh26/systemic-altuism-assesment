@@ -1,9 +1,21 @@
-import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { FiVolumeX, FiVolume1, FiVolume2 } from "react-icons/fi";
-import { IoPauseCircle, IoPlayCircle } from "react-icons/io5";
-import { RiSkipBackFill, RiSkipForwardFill } from "react-icons/ri";
+"use client";
+
+import { useCallback, useEffect, useState, ChangeEvent } from "react";
+
+import {
+  FiVolumeX,
+  FiVolume1,
+  FiVolume2,
+} from "react-icons/fi";
+import {
+  IoPauseCircle,
+  IoPlayCircle,
+} from "react-icons/io5";
+import {
+  RiSkipBackFill,
+  RiSkipForwardFill,
+} from "react-icons/ri";
 import { usePlayer } from "../../context/music-player";
-import { useCallback, useEffect, useState } from "react";
 import MoreOptions from "./more-option";
 
 export default function Player() {
@@ -22,15 +34,12 @@ export default function Player() {
 
   const togglePlay = () => {
     isPlaying ? pause() : play();
-    
   };
 
   const [volume, setVolume] = useState(1);
-  const [showvolume, setShowVolume] = useState(false);
+  const [showVolume, setShowVolume] = useState(false);
 
-  const toggleVolume = () => {
-    setShowVolume(!showvolume);
-  };
+  const toggleVolume = () => setShowVolume((prev) => !prev);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -38,9 +47,12 @@ export default function Player() {
     }
   }, [audioRef, volume]);
 
-  const handleVolumeChange = useCallback((event) => {
-    setVolume(event.target.value);
-  }, []);
+  const handleVolumeChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setVolume(parseFloat(event.target.value));
+    },
+    []
+  );
 
   const getVolumeIcon = () => {
     if (volume === 0) return <FiVolumeX size={22} />;
@@ -48,8 +60,16 @@ export default function Player() {
     return <FiVolume2 size={22} />;
   };
 
+  const calculateProgress = () => {
+    const current =
+      time.currentTime.minute * 60 + time.currentTime.second;
+    const total =
+      time.totalTime.minute * 60 + time.totalTime.second;
+    return total > 0 ? (current / total) * 100 : 0;
+  };
+
   return (
-    <div className="w-full  p-4 flex flex-col h-full">
+    <div className="w-full p-4 flex flex-col h-full">
       {/* Song Info */}
       <div className="px-5 text-center sm:text-left">
         <h1 className="text-3xl font-bold">
@@ -76,23 +96,19 @@ export default function Player() {
         <div className="w-full bg-gray-700 h-1 rounded-full overflow-hidden">
           <div
             className="bg-white h-full rounded-full"
-            style={{
-              width: `${
-                ((time.currentTime.minute * 60 + time.currentTime.second) /
-                  (time.totalTime.minute * 60 + time.totalTime.second || 1)) *
-                100
-              }%`,
-            }}
+            style={{ width: `${calculateProgress()}%` }}
           />
         </div>
       </div>
 
       {/* Controls */}
       <div className="flex flex-wrap justify-center items-center w-full max-w-[400px] mx-auto gap-6">
-      <MoreOptions currentTrack={currentTrack} />
+        <MoreOptions currentTrack={currentTrack} />
 
-
-        <button className="p-2 text-gray-400 hover:text-white" onClick={previousTrack}>
+        <button
+          className="p-2 text-gray-400 hover:text-white"
+          onClick={previousTrack}
+        >
           <RiSkipBackFill size={24} />
         </button>
 
@@ -100,16 +116,26 @@ export default function Player() {
           className="p-0 text-white hover:scale-105 transition-transform"
           onClick={togglePlay}
         >
-          {isPlaying ? <IoPauseCircle size={48} /> : <IoPlayCircle size={48} />}
+          {isPlaying ? (
+            <IoPauseCircle size={48} />
+          ) : (
+            <IoPlayCircle size={48} />
+          )}
         </button>
 
-        <button className="p-2 text-gray-400 hover:text-white" onClick={nextTrack}>
+        <button
+          className="p-2 text-gray-400 hover:text-white"
+          onClick={nextTrack}
+        >
           <RiSkipForwardFill size={24} />
         </button>
 
         {/* Volume Control */}
         <div className="flex items-center gap-2">
-          <button className="p-2 text-gray-400 hover:text-white" onClick={toggleVolume}>
+          <button
+            className="p-2 text-gray-400 hover:text-white"
+            onClick={toggleVolume}
+          >
             {getVolumeIcon()}
           </button>
 
@@ -121,7 +147,7 @@ export default function Player() {
             value={volume}
             onChange={handleVolumeChange}
             className={`${
-              showvolume ? "w-24 md:w-32 lg:w-40" : "w-0"
+              showVolume ? "w-24 md:w-32 lg:w-40" : "w-0"
             } transition-all duration-300 overflow-hidden cursor-pointer accent-white`}
           />
         </div>
