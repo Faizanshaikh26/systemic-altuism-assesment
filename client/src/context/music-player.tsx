@@ -61,7 +61,7 @@ import {Song} from '../utils/types/song'
     const seekBg = useRef<HTMLDivElement>(null);
     const seekBar = useRef<HTMLDivElement>(null);
     const seekRing = useRef<HTMLDivElement>(null);
-    const audioRef = useRef<HTMLAudioElement | null> (null!)
+    const audioRef = useRef<HTMLAudioElement > (null!)
 
   
     const [albumData, setAlbumData] = useState<Song[]>([]);
