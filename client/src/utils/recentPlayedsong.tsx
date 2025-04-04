@@ -1,25 +1,26 @@
+import { Song } from "../utils/types/song"
 
+const RECENTLY_PLAYED_KEY = "recentlyPlayed"
 
-export const addToRecentlyPlayed = (song: any) => {
-    const key = "recentlyPlayed"
-    let list = JSON.parse(sessionStorage.getItem(key) || "[]")
-  
-    
-    list = list.filter((item: any) => item.id !== song.id)
-  
-  
-    list.unshift(song)
-  
-  
-    if (list.length > 10) {
-      list = list.slice(0, 10)
-    }
-  
-    sessionStorage.setItem(key, JSON.stringify(list))
+// Add a song to recently played list
+export const addToRecentlyPlayed = (song: Song): void => {
+  let list: Song[] = JSON.parse(sessionStorage.getItem(RECENTLY_PLAYED_KEY) || "[]")
+
+  // Remove duplicate if already in the list
+  list = list.filter((item: Song) => item.id !== song.id)
+
+  // Add new song at the beginning
+  list.unshift(song)
+
+  // Limit to 10 items
+  if (list.length > 10) {
+    list = list.slice(0, 10)
   }
-  
-  export const getRecentlyPlayed = () => {
-    const key = "recentlyPlayed"
-    return JSON.parse(sessionStorage.getItem(key) || "[]")
-  }
-  
+
+  sessionStorage.setItem(RECENTLY_PLAYED_KEY, JSON.stringify(list))
+}
+
+// Get the list of recently played songs
+export const getRecentlyPlayed = (): Song[] => {
+  return JSON.parse(sessionStorage.getItem(RECENTLY_PLAYED_KEY) || "[]") as Song[]
+}

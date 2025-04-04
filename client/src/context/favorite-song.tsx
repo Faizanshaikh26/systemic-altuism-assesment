@@ -7,24 +7,19 @@ import {
   removeSongFromFavorite,
   isFavoriteSong,
 } from "../utils/favorite-song"
-
-type Song = {
-  id: string
-  title: string
-  artist: string
-  albumCover?: string
-  duration?: string
-}
+import { Song } from "../utils/types/song"
 
 type FavoriteContextType = {
   favorites: Song[]
   addToFavorite: (song: Song) => void
-  removeFromFavorite: (songId: string) => void
-  isFavorite: (songId: string) => boolean
+  removeFromFavorite: (songId: string | number) => void
+  isFavorite: (songId: string | number) => boolean
 }
 
+// ✅ Create context
 const FavoriteContext = createContext<FavoriteContextType | null>(null)
 
+// ✅ Provider
 export const FavoriteProvider = ({ children }: { children: React.ReactNode }) => {
   const [favorites, setFavorites] = useState<Song[]>([])
 
@@ -38,24 +33,29 @@ export const FavoriteProvider = ({ children }: { children: React.ReactNode }) =>
     setFavorites(getFavoriteSongs())
   }
 
-  const removeFromFavorite = (songId: string) => {
-    removeSongFromFavorite(songId)
+  const removeFromFavorite = (songId: string | number) => {
+    removeSongFromFavorite(String(songId))
     setFavorites(getFavoriteSongs())
   }
 
-  const isFavorite = (songId: string) => {
-    return isFavoriteSong(songId)
+  const isFavorite = (songId: string | number) => {
+    return isFavoriteSong(String(songId))
   }
 
   return (
-    <FavoriteContext.Provider value={{ favorites, addToFavorite, removeFromFavorite, isFavorite }}>
+    <FavoriteContext.Provider
+      value={{ favorites, addToFavorite, removeFromFavorite, isFavorite }}
+    >
       {children}
     </FavoriteContext.Provider>
   )
 }
 
+
 export const useFavorite = () => {
   const context = useContext(FavoriteContext)
-  if (!context) throw new Error("useFavorite must be used within FavoriteProvider")
+  if (!context) {
+    throw new Error("useFavorite must be used within a FavoriteProvider")
+  }
   return context
 }
